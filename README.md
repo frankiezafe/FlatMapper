@@ -3,6 +3,8 @@
 # FlatMapper
 Video / generative visual mapper, running in processing.org.
 
+video: https://vimeo.com/264664694
+
 ## installation
 
 * download / clone this repository on your drive;
