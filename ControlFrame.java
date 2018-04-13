@@ -217,11 +217,11 @@ class ControlFrame extends PApplet {
     ui_refresh();
   }
   
-  public void save_all(int i) {
+  public synchronized void save_all(int i) {
     parent.save_flatmap();
   }
   
-  public void confirm(int i) {
+  public synchronized void confirm(int i) {
     if ( parent.editmappable == null ) return;
     
     if ( parent.editmode == EDITMODE_EDIT || parent.editmode == EDITMODE_DRAG ) {
@@ -240,7 +240,7 @@ class ControlFrame extends PApplet {
     }
   }
   
-  public void del(int i) {
+  public synchronized void del(int i) {
     if ( parent.editmode == EDITMODE_EDIT || parent.editmode == EDITMODE_DRAG ) {
       if ( parent.editline != null && !parent.newmappable ) {
         parent.map.rmv( parent.editline );

@@ -114,7 +114,7 @@ public void movieEvent(Movie m) {
   m.read();
 }
 
-public void draw() {
+public synchronized void draw() {
   
   update_demo_rt();
   
