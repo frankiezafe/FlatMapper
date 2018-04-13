@@ -12,7 +12,7 @@ Video / generative visual mapper, running in processing.org.
 
 ## intention
 
-FlatMapper adds basic video mapping functionalities to any processing sketch. It has been conceived during the development of Amas Dryades at [Arts²](http://www.artsaucarre.be/) to simplify the usual workflow involving MadMapper and syphon.
+FlatMapper adds basic video mapping functionalities to any processing sketch. It has been conceived during the development of Amas Dryades at [Arts²](http://www.artsaucarre.be/) to simplify the usual workflow involving mapping softwares and [syphon](http://www.syphon.v002.info/).
 
 It has not been packed as a standalone executable to ensure an easy and fast access to the code, and facilitate the integration of new visuals or features.
 
@@ -108,9 +108,9 @@ Some crashes might happen, so save as soon as you can!
 
 ## notes about pedagogy
 
-To leave basic experimentations and build complete projects, a digital artist can not be constrained by the limitation of her·his tools, especially when the tool is based on programming! Therefore it is important to integrate notions coming from computer science in the training, to emancipate minds and therefore productions.
+To go beyond basic experimentations and build complete projects, a digital artist can not be constrained by the limitation of her·his tools, especially when the tool is based on programmation! Therefore it is important to integrate notions coming from computer science in the training, to emancipate minds and productions.
 
-FlatMapper integrates several interesting features to teach object oriented programming and also clarify the relation of processing and its programming language, [java](https://en.wikipedia.org/wiki/Java_(programming_language).
+FlatMapper integrates several interesting features to explain object oriented programming and also clarify the relation of processing and its programming language, [java](https://en.wikipedia.org/wiki/Java_(programming_language)).
 
 Important classes are using inheritance, the core features of oriented programming. The relation between *Mappable*, the mother class and her daughters, *Line* and *Plane*, enlights the benefits of this mechanism. All common variables (parameters) and operations (methods) are declared in *Mappable*, leaving only the specific operations to the 2 other classes.
 
