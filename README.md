@@ -5,6 +5,8 @@ Video / generative visual mapper, running in processing.org.
 
 video: https://vimeo.com/264664694
 
+![main interface](http://polymorph.cool/wp-content/uploads/2018/04/flatmapper-fullscreen.png)
+
 ## installation
 
 * download / clone this repository on your drive;
