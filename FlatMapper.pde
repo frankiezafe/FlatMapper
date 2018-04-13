@@ -114,6 +114,33 @@ public void movieEvent(Movie m) {
   m.read();
 }
 
+public synchronized void confirm() {
+  if ( editmode == ControlFrame.EDITMODE_EDIT || editmode == ControlFrame.EDITMODE_DRAG ) {
+    if ( editline != null && newmappable ) {
+      map.add( editline );
+    } else if ( editplane != null && newmappable ) {
+      map.add( editplane );
+    }
+    editmappable.set_osc_address( ((Textfield) cf.get_edit_element(ControlFrame.ee_osc)).getText() );
+    editmappable.set_texture_path( ((Textfield) cf.get_edit_element(ControlFrame.ee_tex)).getText() );
+    editmappable.load_texture();
+    deselect_all();
+    editmode = ControlFrame.EDITMODE_NORMAL;
+  }
+}
+
+public synchronized void del() {
+  if ( editmode == ControlFrame.EDITMODE_EDIT || editmode == ControlFrame.EDITMODE_DRAG ) {
+    if ( editline != null && !newmappable ) {
+      map.rmv( editline );
+    } else if ( editplane != null && !newmappable ) {
+      map.rmv( editplane );
+    }
+    deselect_all();
+    editmode = ControlFrame.EDITMODE_NORMAL;
+  }
+}
+
 public synchronized void draw() {
   
   update_demo_rt();

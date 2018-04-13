@@ -70,7 +70,7 @@ public String serialisation_path() {
   return dataPath("") + "/flatmap";
 }
 
-public void save_flatmap() {
+public synchronized void save_flatmap() {
   // https://www.tutorialspoint.com/java/java_serialization.htm
   try {
     FileOutputStream fileOut = new FileOutputStream(serialisation_path());
@@ -84,7 +84,7 @@ public void save_flatmap() {
   }
 }
 
-public void load_flatmap() {
+public synchronized void load_flatmap() {
   // https://beginnersbook.com/2013/12/how-to-serialize-arraylist-in-java/
   try {
     FileInputStream fis = new FileInputStream(serialisation_path());

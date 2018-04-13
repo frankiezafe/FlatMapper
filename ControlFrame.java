@@ -11,28 +11,28 @@ class ControlFrame extends PApplet {
   public static final int EDITMODE_EDIT = 2;
   public static final int EDITMODE_DRAG = 3;
   
-  private static final int ee_ticka = 0;
-  private static final int ee_tickmid = ee_ticka + 1;
-  private static final int ee_tickb = ee_tickmid + 1;
-  private static final int ee_tickall = ee_tickb + 1;
-  private static final int ee_red = ee_tickall + 1;
-  private static final int ee_green = ee_red + 1;
-  private static final int ee_blue = ee_green + 1;
-  private static final int ee_alpha = ee_blue + 1;
-  private static final int ee_xa = ee_alpha + 1;
-  private static final int ee_ya = ee_xa + 1;
-  private static final int ee_xb = ee_ya + 1;
-  private static final int ee_yb = ee_xb + 1;
-  private static final int ee_xc = ee_yb + 1;
-  private static final int ee_yc = ee_xc + 1;
-  private static final int ee_xd = ee_yc + 1;
-  private static final int ee_yd = ee_xd + 1;
-  private static final int ee_div = ee_yd + 1;
-  private static final int ee_osc = ee_div + 1;
-  private static final int ee_tex = ee_osc + 1;
-  private static final int ee_deb = ee_tex + 1;
-  private static final int ee_conf = ee_deb + 1;
-  private static final int ee_del = ee_conf + 1;
+  public static final int ee_ticka = 0;
+  public static final int ee_tickmid = ee_ticka + 1;
+  public static final int ee_tickb = ee_tickmid + 1;
+  public static final int ee_tickall = ee_tickb + 1;
+  public static final int ee_red = ee_tickall + 1;
+  public static final int ee_green = ee_red + 1;
+  public static final int ee_blue = ee_green + 1;
+  public static final int ee_alpha = ee_blue + 1;
+  public static final int ee_xa = ee_alpha + 1;
+  public static final int ee_ya = ee_xa + 1;
+  public static final int ee_xb = ee_ya + 1;
+  public static final int ee_yb = ee_xb + 1;
+  public static final int ee_xc = ee_yb + 1;
+  public static final int ee_yc = ee_xc + 1;
+  public static final int ee_xd = ee_yc + 1;
+  public static final int ee_yd = ee_xd + 1;
+  public static final int ee_div = ee_yd + 1;
+  public static final int ee_osc = ee_div + 1;
+  public static final int ee_tex = ee_osc + 1;
+  public static final int ee_deb = ee_tex + 1;
+  public static final int ee_conf = ee_deb + 1;
+  public static final int ee_del = ee_conf + 1;
 
   private ControlP5 ui = null;
   
@@ -67,6 +67,14 @@ class ControlFrame extends PApplet {
     h=_h;
     PApplet.runSketch(new String[]{this.getClass().getName()}, this);
     
+  }
+
+  public Controller get_main_element( int i ) {
+    return ui_main_elements.get(i);
+  }
+
+  public Controller get_edit_element( int i ) {
+    return ui_edit_elements.get(i);
   }
 
   public void settings() {
@@ -217,41 +225,20 @@ class ControlFrame extends PApplet {
     ui_refresh();
   }
   
-  public synchronized void save_all(int i) {
+  public void save_all(int i) {
     parent.save_flatmap();
   }
   
-  public synchronized void confirm(int i) {
-    if ( parent.editmappable == null ) return;
-    
-    if ( parent.editmode == EDITMODE_EDIT || parent.editmode == EDITMODE_DRAG ) {
-      if ( parent.editline != null && parent.newmappable ) {
-        parent.map.add( parent.editline );
-      } else if ( parent.editplane != null && parent.newmappable ) {
-        parent.map.add( parent.editplane );
-      }
-      parent.editmappable.set_osc_address( ((Textfield) ui_edit_elements.get(ee_osc)).getText() );
-      parent.editmappable.set_texture_path( ((Textfield) ui_edit_elements.get(ee_tex)).getText() );
-      parent.editmappable.load_texture();
-      parent.deselect_all();
-      parent.editmode = EDITMODE_NORMAL;
-      regenerate_ui();
-      ui_refresh();
-    }
+  public void confirm(int i) {
+    parent.confirm();
+    regenerate_ui();
+    ui_refresh();
   }
   
-  public synchronized void del(int i) {
-    if ( parent.editmode == EDITMODE_EDIT || parent.editmode == EDITMODE_DRAG ) {
-      if ( parent.editline != null && !parent.newmappable ) {
-        parent.map.rmv( parent.editline );
-      } else if ( parent.editplane != null && !parent.newmappable ) {
-        parent.map.rmv( parent.editplane );
-      }
-      parent.deselect_all();
-      parent.editmode = EDITMODE_NORMAL;
-      regenerate_ui();
-      ui_refresh();
-    }
+  public void del(int i) {
+    parent.del();
+    regenerate_ui();
+    ui_refresh();
   }
   
   public void thickness_a( float v ) {
