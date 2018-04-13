@@ -1,12 +1,28 @@
 # FlatMapper
 Video / generative visual mapper, running in processing.org.
 
+## licenses
+
+Code, puredata patch and logo are distributed under [gpl v3](https://www.gnu.org/licenses/agpl-3.0.en.html).
+
+Video extract from [Mass Production](https://vimeo.com/143615010) by [Matteo Zamagni](https://vimeo.com/matteozamagni) under [cc 3.0](https://creativecommons.org/licenses/by/3.0/).
+
+Default texture has been found on [Michaela Knights ](http://michaelagamesartba1b.blogspot.be/2015/12/ba1b-consists-of-3-project-briefs-which.html).
+
+Puking rainbow meme by [Angelishi](http://knowyourmeme.com/photos/1175959-puking-rainbows).
+
 ## installation
 
 * download / clone this repository on your drive;
 * install [processing](http://processing.org) and required dependencies (see below);
 * open the sketch;
 * press *run* and that's it!
+
+## intention
+
+FlatMapper adds basic video mapping functionalities to any processing sketch. It has been conceived during the development of Amas Dryades at [Arts²](http://www.artsaucarre.be/) to simplify the usual workflow involving MadMapper and syphon.
+
+It has not been packed as a standalone executable to ensure an easy and fast access to the code, and facilitate the integration of new visuals or features.
 
 ## structure of the repository
 
@@ -94,3 +110,14 @@ If none of these names are found in the message, the method *parse_custom(OscMes
 * **ResolutionChooser.java**: a pure java popup, allowing user to select the resolution and position of the main window.
 * **DEMO_RT.pde**: processing example *Topics/Geometry/Shapetransform.pde* rendered on  texture.
 
+## notes about pedagogy
+
+To leave basic experimentations and build complete projects, a digital artist can not be constrained by the limitation of her·his tools, especially when the tool is based on programming! Therefore it is important to integrate notions coming from computer science in the training, to emancipate minds and therefore productions.
+
+FlatMapper integrates several interesting features to teach object oriented programming and also clarify the relation of processing and its programming language, [java](https://en.wikipedia.org/wiki/Java_(programming_language).
+
+Important classes are using inheritance, the core features of oriented programming. The relation between *Mappable*, the mother class and her daughters, *Line* and *Plane*, enlights the benefits of this mechanism. All common variables (parameters) and operations (methods) are declared in *Mappable*, leaving only the specific operations to the 2 other classes.
+
+*ControlFrame* is managing objects declared in *FlatMapper* and is synchronised with it manually. This relation between the 2 objects shows the importance of managing the operation sequence at runtime.
+
+*ResolutionChooser* shows how to configure *FlatMapper* before the setup call by using a [swing](https://en.wikipedia.org/wiki/Swing_(Java)) dialog.
