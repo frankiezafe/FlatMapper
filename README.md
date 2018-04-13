@@ -1,4 +1,4 @@
-![banner](http://polymorph.cool/wp-content/uploads/2018/04/logo-banner.png)
+![banner](http://polymorph.cool/wp-content/uploads/2018/04/logo-banner-900x250.png)
 
 # FlatMapper
 Video / generative visual mapper, running in processing.org.
