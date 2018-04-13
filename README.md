@@ -1,15 +1,7 @@
+![banner](http://polymorph.cool/wp-content/uploads/2018/04/logo-banner.png)
+
 # FlatMapper
 Video / generative visual mapper, running in processing.org.
-
-## licenses
-
-Code, puredata patch and logo are distributed under [gpl v3](https://www.gnu.org/licenses/agpl-3.0.en.html).
-
-Video extract from [Mass Production](https://vimeo.com/143615010) by [Matteo Zamagni](https://vimeo.com/matteozamagni) under [cc 3.0](https://creativecommons.org/licenses/by/3.0/).
-
-Default texture has been found on [Michaela Knights ](http://michaelagamesartba1b.blogspot.be/2015/12/ba1b-consists-of-3-project-briefs-which.html).
-
-Puking rainbow meme by [Angelishi](http://knowyourmeme.com/photos/1175959-puking-rainbows).
 
 ## installation
 
@@ -110,6 +102,10 @@ If none of these names are found in the message, the method *parse_custom(OscMes
 * **ResolutionChooser.java**: a pure java popup, allowing user to select the resolution and position of the main window.
 * **DEMO_RT.pde**: processing example *Topics/Geometry/Shapetransform.pde* rendered on  texture.
 
+## stability
+
+Some crashes might happen, so save as soon as you can!
+
 ## notes about pedagogy
 
 To leave basic experimentations and build complete projects, a digital artist can not be constrained by the limitation of her·his tools, especially when the tool is based on programming! Therefore it is important to integrate notions coming from computer science in the training, to emancipate minds and therefore productions.
@@ -121,3 +117,13 @@ Important classes are using inheritance, the core features of oriented programmi
 *ControlFrame* is managing objects declared in *FlatMapper* and is synchronised with it manually. This relation between the 2 objects shows the importance of managing the operation sequence at runtime.
 
 *ResolutionChooser* shows how to configure *FlatMapper* before the setup call by using a [swing](https://en.wikipedia.org/wiki/Swing_(Java)) dialog.
+
+## licenses
+
+Code, puredata patch and logo are distributed under [gpl v3](https://www.gnu.org/licenses/agpl-3.0.en.html).
+
+Video extract from [Mass Production](https://vimeo.com/143615010) by [Matteo Zamagni](https://vimeo.com/matteozamagni) under [cc 3.0](https://creativecommons.org/licenses/by/3.0/).
+
+Default texture has been found on [Michaela Knights ](http://michaelagamesartba1b.blogspot.be/2015/12/ba1b-consists-of-3-project-briefs-which.html) website.
+
+Puking rainbow meme by [Angelishi](http://knowyourmeme.com/photos/1175959-puking-rainbows).
