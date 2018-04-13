@@ -10,13 +10,13 @@ Video / generative visual mapper, running in processing.org.
 
 ## structure of the repository
 
-* root folder: processing sketches (.pde) and java classes (.java);
+* root: processing sketches (.pde) and java classes (.java);
 * **assets** folder: svg file of the logo and [pureadata](http://puredata.info/) patch to demonstrate OSC functionalities;
 * **data** folder: images and video loaded by the code.
 
 ## requirements
 
-The runs in [processing](http://processing.org) (developped in version 3.3.6). It relies on several libraries of the framework:
+The code runs in [processing](http://processing.org) (developped in version 3.3.6). It relies on several libraries of the framework:
 
 * [oscP5](http://www.sojamo.de/libraries/oscP5/) - enable Open Sound Control functionalities;
 * [ControlP5](http://www.sojamo.de/libraries/controlP5/) - management of the user interface;
@@ -24,7 +24,7 @@ The runs in [processing](http://processing.org) (developped in version 3.3.6). I
 
 All these addons are installable via the standard procedure: *Tools* > *Add tool...* in the IDE interface.
 
-To run the puredata sketch, you have to install:
+To run the puredata patch, you have to install:
 
 * [pureadata](http://puredata.info/);
 * [mrpeach](https://github.com/reduzent/pd-mrpeach) - enable Open Sound Control functionalities.
@@ -33,7 +33,7 @@ mrpeach is installable via **deken**. Open puredata, go to *Help* > *Find extern
 
 ## OSC
 
-You can control the properties of *planes* and *lines* via OSC. To do so, set the OSC address field of each element. The default value is **/M**.
+You can control the properties of *planes* and *lines* via OSC. To do so, set the OSC address field of each element. The default value is **/M** for planes and **/L** for lines.
 
 The application is listening to port **23000** by default. Modify **oscP5_port** parameter in FlatMapper.pde to yur needs.
 
@@ -43,25 +43,25 @@ The application is listening to port **23000** by default. Modify **oscP5_port**
 
 * **address**: must correspond to the osc address parameters of the element, **/M** by default;
 * **arguments**
-* * **name**:the name of the parameter
-* * **float**: depending on the paramater, a serie of 0 to 3 floats
+* * **name**: the name of the parameter;
+* * **float**: depending on the paramater, a serie of 0 to 3 floats.
 
 For instance, a message to control a plane with osc address set to */myplane* would look like:
 
 * address: **/myplane**;
-* argument 0, string: **pos**;
-* argument 1, float: a number between 0 and 3, representing the point of the plane;
-* argument 2, float: a number representing the **x** position of the point;
-* argument 3, float: a number representing the **y** position of the point.
+* arg[0], string: **pos**;
+* arg[1], float: a number between 0 and 3, representing the point of the plane;
+* arg[2], float: a number representing the **x** position of the point;
+* arg[3], float: a number representing the **y** position of the point.
 
 This will change the position of one point.
 
 * address: **/myplane**;
-* argument 0, string: **hide**.
+* arg[0], string: **hide**.
 
 This will hide the plane.
 
-I guess that you get the idea...
+I guess you get the idea...
 
 ### valid names
 
@@ -80,7 +80,7 @@ See *Mappable.java*, method *parse(OscMessage msg)* for the implementation.
 * **hide**;
 * **show**.
 
-If none of these names are found in the message, the object will automatically call *parse_custom(OscMessage msg)*. The method can be overloaded in *Line.java* and *Plane.java*.
+If none of these names are found in the message, the method *parse_custom(OscMessage msg)* will be call automatically. The method can be overloaded in *Line.java* and *Plane.java*.
 
 ## classes hierarchy
 
@@ -88,9 +88,9 @@ If none of these names are found in the message, the object will automatically c
 * **FM_extra.pde**: sub-part of FlatMapper, contains osc, textures management and serialisation methods.
 * **ControlFrame.java**: floating window containing the UI.
 * **FlatMap.java**: a simple object containing the lists of lines and planes to serialise.
-* **Mappable.java**: represent any object used in the main window and contains all common parameters and methods.
+* **Mappable.java**: base class of any object used in the main window, it contains all common parameters and methods.
 * **Line.java**: a specialisation of Mappable with 2 points and thickness control.
 * **Plane.java**: a specialisation of Mappable with 4 points.
 * **ResolutionChooser.java**: a pure java popup, allowing user to select the resolution and position of the main window.
-* **DEMO_RT.pde**: example *Topics/Geometry/Shapetransform.pde* rendered on  texture.
+* **DEMO_RT.pde**: processing example *Topics/Geometry/Shapetransform.pde* rendered on  texture.
 
