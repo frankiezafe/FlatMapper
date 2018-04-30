@@ -3,7 +3,7 @@
 # FlatMapper
 Video / generative visual mapper, running in processing.org.
 
-video: https://vimeo.com/264664694
+video: https://vimeo.com/264664694 / https://peertube.mastodon.host/videos/watch/903fe152-fe9f-4f69-9b3f-80eb3bb8875b
 
 ![main interface](http://polymorph.cool/wp-content/uploads/2018/04/flatmapper-fullscreen.png)
 
