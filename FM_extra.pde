@@ -38,6 +38,12 @@ public PImage get_texture( String path ) {
   return texture_atlas.get( path );
 }
 
+public PImage get_texture( int id ) {
+    String[] names = new String[texture_atlas.keySet().size()];
+    texture_atlas.keySet().toArray(names);
+    return texture_atlas.get( names[ id ] );
+}
+
 private void load_default_texture() {
   texture_atlas = new java.util.HashMap<String,PImage>();
   load_texture( default_texture_path );

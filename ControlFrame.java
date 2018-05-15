@@ -2,6 +2,7 @@ import java.util.Base64;
 import java.util.ArrayList;
 import processing.core.PVector;
 import processing.core.PImage;
+import processing.core.PGraphics;
 import processing.core.PApplet;
 import controlP5.*;
 
@@ -35,6 +36,10 @@ class ControlFrame extends PApplet {
   public static final int ee_del = ee_conf + 1;
 
   private ControlP5 ui = null;
+
+  private int ui_width_large = 270;
+  private int ui_width_normal = 200;
+  private int ui_width_small = 120;
   
   private Button ui_save = null;
   // lines
@@ -57,6 +62,8 @@ class ControlFrame extends PApplet {
   private int uiy_top = 20;
   private FlatMapper parent;
   private ControlP5 cp5;
+   
+  private PImage display_texture_im = null;
   
   private PImage logo;
 
@@ -78,7 +85,7 @@ class ControlFrame extends PApplet {
   }
 
   public void settings() {
-    size(w, h);
+    size(w, h, P3D);
   }
 
   public void setup() {
@@ -95,15 +102,15 @@ class ControlFrame extends PApplet {
     ui_main_elements.add(ui_add_line);
     ui_save = ui.addButton("save_all").setPosition(240, uiy).setSize(50, 15); uiy += 20;
     ui_main_elements.add(ui_save);
-    ui_list_line = ui.addListBox("lines").setPosition(uiy_left, uiy).setSize(270, 120); uiy += 120;
+    ui_list_line = ui.addListBox("lines").setPosition(uiy_left, uiy).setSize(ui_width_large, 120); uiy += 120;
     ui_main_elements.add(ui_list_line);
     // space for a full list
     ui_add_plane = ui.addButton("add_plane").setPosition(uiy_left, uiy).setSize(50, 15); uiy += 20;
     ui_main_elements.add(ui_add_plane);
-    ui_list_plane = ui.addListBox("planes").setPosition(uiy_left, uiy).setSize(270, 120); uiy += 120;
+    ui_list_plane = ui.addListBox("planes").setPosition(uiy_left, uiy).setSize(ui_width_large, 120); uiy += 120;
     ui_main_elements.add(ui_list_plane);
     // space for a full list
-    ui_list_textures = ui.addListBox("textures").setPosition(uiy_left, uiy).setSize(270, 120);
+    ui_list_textures = ui.addListBox("textures").setPosition(uiy_left, uiy).setSize(ui_width_large, 120);
     ui_main_elements.add(ui_list_textures);
     
     uiy = uiy_top;
@@ -113,52 +120,52 @@ class ControlFrame extends PApplet {
     int gid = 0;
     
     // thickness
-    ui_edit_elements.add( ui.addSlider("thickness_a").setPosition(uiy_left,uiy).setSize(200, 12).setRange(0,300) );
+    ui_edit_elements.add( ui.addSlider("thickness_a").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(0,300) );
     ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
-    ui_edit_elements.add( ui.addSlider("thickness_mid").setPosition(uiy_left,uiy).setSize(200, 12).setRange(0,300) ); 
+    ui_edit_elements.add( ui.addSlider("thickness_mid").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(0,300) ); 
     ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
-    ui_edit_elements.add( ui.addSlider("thickness_b").setPosition(uiy_left,uiy).setSize(200, 12).setRange(0,300) );
+    ui_edit_elements.add( ui.addSlider("thickness_b").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(0,300) );
     ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
-    ui_edit_elements.add( ui.addSlider("thickness_all").setPosition(uiy_left,uiy).setSize(200, 12).setRange(0,300) );
+    ui_edit_elements.add( ui.addSlider("thickness_all").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(0,300) );
     ui_edit_gaps.add( 20 ); uiy += ui_edit_gaps.get( gid ); ++gid;
     // rgba
-    ui_edit_elements.add( ui.addSlider("red_tint").setPosition(uiy_left,uiy).setSize(120, 12).setRange(0,1) );
+    ui_edit_elements.add( ui.addSlider("red_tint").setPosition(uiy_left,uiy).setSize(ui_width_small, 12).setRange(0,1) );
     ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
-    ui_edit_elements.add( ui.addSlider("green_tint").setPosition(uiy_left,uiy).setSize(120, 12).setRange(0,1) );
+    ui_edit_elements.add( ui.addSlider("green_tint").setPosition(uiy_left,uiy).setSize(ui_width_small, 12).setRange(0,1) );
     ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
-    ui_edit_elements.add( ui.addSlider("blue_tint").setPosition(uiy_left,uiy).setSize(120, 12).setRange(0,1) );
+    ui_edit_elements.add( ui.addSlider("blue_tint").setPosition(uiy_left,uiy).setSize(ui_width_small, 12).setRange(0,1) );
     ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
-    ui_edit_elements.add( ui.addSlider("opacity").setPosition(uiy_left,uiy).setSize(120, 12).setRange(0,1) );
+    ui_edit_elements.add( ui.addSlider("opacity").setPosition(uiy_left,uiy).setSize(ui_width_small, 12).setRange(0,1) );
     ui_edit_gaps.add( 20 ); uiy += ui_edit_gaps.get( gid ); ++gid;
     
     // positions
     // positions A
-    ui_edit_elements.add( ui.addSlider("pos_x_a").setPosition(uiy_left,uiy).setSize(200, 12).setRange(0,parent.width) );
+    ui_edit_elements.add( ui.addSlider("pos_x_a").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(0,parent.width) );
     ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
-    ui_edit_elements.add( ui.addSlider("pos_y_a").setPosition(uiy_left,uiy).setSize(200, 12).setRange(0,parent.height) );
+    ui_edit_elements.add( ui.addSlider("pos_y_a").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(0,parent.height) );
     ui_edit_gaps.add( 20 ); uiy += ui_edit_gaps.get( gid ); ++gid;
     // positions B
-    ui_edit_elements.add( ui.addSlider("pos_x_b").setPosition(uiy_left,uiy).setSize(200, 12).setRange(0,parent.width) );
+    ui_edit_elements.add( ui.addSlider("pos_x_b").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(0,parent.width) );
     ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
-    ui_edit_elements.add( ui.addSlider("pos_y_b").setPosition(uiy_left,uiy).setSize(200, 12).setRange(0,parent.height) );
+    ui_edit_elements.add( ui.addSlider("pos_y_b").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(0,parent.height) );
     ui_edit_gaps.add( 20 ); uiy += ui_edit_gaps.get( gid ); ++gid;
     // positions C
-    ui_edit_elements.add( ui.addSlider("pos_x_c").setPosition(uiy_left,uiy).setSize(200, 12).setRange(0,parent.width) );
+    ui_edit_elements.add( ui.addSlider("pos_x_c").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(0,parent.width) );
     ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
-    ui_edit_elements.add( ui.addSlider("pos_y_c").setPosition(uiy_left,uiy).setSize(200, 12).setRange(0,parent.height) );
+    ui_edit_elements.add( ui.addSlider("pos_y_c").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(0,parent.height) );
     ui_edit_gaps.add( 20 ); uiy += ui_edit_gaps.get( gid ); ++gid;
     // positions D
-    ui_edit_elements.add( ui.addSlider("pos_x_d").setPosition(uiy_left,uiy).setSize(200, 12).setRange(0,parent.width) );
+    ui_edit_elements.add( ui.addSlider("pos_x_d").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(0,parent.width) );
     ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
-    ui_edit_elements.add( ui.addSlider("pos_y_d").setPosition(uiy_left,uiy).setSize(200, 12).setRange(0,parent.height) );
+    ui_edit_elements.add( ui.addSlider("pos_y_d").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(0,parent.height) );
     ui_edit_gaps.add( 20 ); uiy += ui_edit_gaps.get( gid ); ++gid;
     
-    ui_edit_elements.add( ui.addSlider("subdivisions").setPosition(uiy_left,uiy).setSize(200, 12).setRange(1,30) );
+    ui_edit_elements.add( ui.addSlider("subdivisions").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(1,30) );
     ui_edit_gaps.add( 20 ); uiy += ui_edit_gaps.get( gid ); ++gid;
     
-    ui_edit_elements.add( ui.addTextfield("osc_address").setPosition(uiy_left,uiy).setSize(200,15) );
+    ui_edit_elements.add( ui.addTextfield("osc_address").setPosition(uiy_left,uiy).setSize(ui_width_normal,15) );
     ui_edit_gaps.add( 30 ); uiy += ui_edit_gaps.get( gid ); ++gid;
-    ui_edit_elements.add( ui.addTextfield("texture_path").setPosition(uiy_left,uiy).setSize(200,15) );
+    ui_edit_elements.add( ui.addTextfield("texture_path").setPosition(uiy_left,uiy).setSize(ui_width_normal,15) );
     ui_edit_gaps.add( 40 ); uiy += ui_edit_gaps.get( gid ); ++gid;
     
     //ui_debug = ;
@@ -191,8 +198,25 @@ class ControlFrame extends PApplet {
   }
 
   public void draw() {
+    
     background(0);
+    
+    if ( display_texture_im != null ) {
+      float w = display_texture_im.width;
+      float h = display_texture_im.height;
+      float r = w / h;
+      float dw = ui_width_large;
+      float dh = ui_width_large / r;
+      if ( dh > 200 ) {
+        dh = 200;
+        dw = dh * r;
+      }
+      image( display_texture_im, ui_list_textures.getPosition()[0], ui_list_textures.getPosition()[1] + 15, dw, dh );
+      
+    }
+    
     image( logo, 20, height - ( logo.height + 20 ) );
+    
   }
   
   public void add_line(int i) {
@@ -370,6 +394,14 @@ class ControlFrame extends PApplet {
         parent.editmappable.enable_debug( false );
       } else {
         parent.editmappable.enable_debug( true );
+      }
+    } else if( e.getName().equals("textures") ) {
+      int tid = (int)e.getValue();
+      PImage im = parent.get_texture( tid );
+      if ( im == display_texture_im ) {
+        display_texture_im = null;
+      } else {
+        display_texture_im = im;
       }
     }
   }

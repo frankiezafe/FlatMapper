@@ -30,6 +30,8 @@ ControlFrame cf;
 Movie movie;
 
 public FlatMapper() {
+  ResolutionConfig.width = 800;
+  ResolutionConfig.height = 600;
   resc = new ResolutionChooser();
   int sel = resc.show();
   if ( sel == 1 ) {

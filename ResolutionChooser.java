@@ -46,37 +46,37 @@ public class ResolutionChooser {
     setOptionSelection(0);
     
     wField = new JTextField(5);
-    wField.setText( "1280" );
+    wField.setText( "" + ResolutionConfig.width );
     addComponent(new JLabel("window width:"));
     addComponent(wField);
     
     hField = new JTextField(5);
-    hField.setText( "720" );
+    hField.setText( "" + ResolutionConfig.height );
     addComponent(new JLabel("window height: (no fullscreen)"));
     addComponent(hField);
     
     fullsc = new JCheckBox();
-    fullsc.setSelected( true );
+    fullsc.setSelected( ResolutionConfig.fullscreen );
     addComponent(new JLabel("fullscreen?"));
     addComponent(fullsc);
     
     scrField = new JTextField(5);
-    scrField.setText( "1" );
+    scrField.setText( "" + ResolutionConfig.screenid );
     addComponent(new JLabel("screen selector: (fullscreen)"));
     addComponent(scrField);
     
     xField = new JTextField(5);
-    xField.setText( "0" );
+    xField.setText( "" + ResolutionConfig.offsetx );
     addComponent(new JLabel("window offset x: (no fullscreen)"));
     addComponent(xField);
     
     yField = new JTextField(5);
-    yField.setText( "0" );
+    yField.setText( "" + ResolutionConfig.offsety );
     addComponent(new JLabel("window offest y:"));
     addComponent(yField);
     
     autorsz = new JCheckBox();
-    autorsz.setSelected( false );
+    autorsz.setSelected( ResolutionConfig.autoresize );
     addComponent(new JLabel("auto resize mapping? (soon)"));
     addComponent(autorsz);
 
