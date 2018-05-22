@@ -28,6 +28,16 @@ class ControlFrame extends PApplet {
   public static final int ee_yc = ee_xc + 1;
   public static final int ee_xd = ee_yc + 1;
   public static final int ee_yd = ee_xd + 1;
+  
+  public static final int ee_uvxa = ee_yd + 1;
+  public static final int ee_uvya = ee_uvxa + 1;
+  public static final int ee_uvxb = ee_uvya + 1;
+  public static final int ee_uvyb = ee_uvxb + 1;
+  public static final int ee_uvxc = ee_uvyb + 1;
+  public static final int ee_uvyc = ee_uvxc + 1;
+  public static final int ee_uvxd = ee_uvyc + 1;
+  public static final int ee_uvyd = ee_uvxd + 1;
+  
   public static final int ee_div = ee_yd + 1;
   public static final int ee_osc = ee_div + 1;
   public static final int ee_tex = ee_osc + 1;
@@ -138,7 +148,7 @@ class ControlFrame extends PApplet {
     ui_edit_elements.add( ui.addSlider("opacity").setPosition(uiy_left,uiy).setSize(ui_width_small, 12).setRange(0,1) );
     ui_edit_gaps.add( 20 ); uiy += ui_edit_gaps.get( gid ); ++gid;
     
-    // positions
+    // positions *********
     // positions A
     ui_edit_elements.add( ui.addSlider("pos_x_a").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(0,parent.width) );
     ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
@@ -159,6 +169,13 @@ class ControlFrame extends PApplet {
     ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
     ui_edit_elements.add( ui.addSlider("pos_y_d").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(0,parent.height) );
     ui_edit_gaps.add( 20 ); uiy += ui_edit_gaps.get( gid ); ++gid;
+    
+    // UVS *********
+    // uv a
+    ui_edit_elements.add( ui.addSlider("uv_x_a").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(-1,1) );
+    ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
+    ui_edit_elements.add( ui.addSlider("uv_y_d").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(-1,1) );
+    ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
     
     ui_edit_elements.add( ui.addSlider("subdivisions").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(1,30) );
     ui_edit_gaps.add( 20 ); uiy += ui_edit_gaps.get( gid ); ++gid;
@@ -186,6 +203,7 @@ class ControlFrame extends PApplet {
     ui_edit_slider_plane = new int[] { 
       ee_red, ee_green, ee_blue, ee_alpha,
       ee_xa, ee_ya, ee_xb, ee_yb, ee_xc, ee_yc, ee_xd, ee_yd, 
+      ee_uvxa, ee_uvya, ee_uvxb, ee_uvyb, ee_uvxc, ee_uvyc, ee_uvxd, ee_uvyd, 
       ee_div, ee_osc, ee_tex, ee_deb, ee_conf, ee_del
     };
     

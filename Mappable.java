@@ -7,9 +7,17 @@ import oscP5.*;
 public class Mappable implements java.io.Serializable {
   
   public static final int MESH_SUBDIVIDE = 5;
+  public static final int DELTA_DEFAULT = 0;
+  public static final int DELTA_LEFT = 1;
+  public static final int DELTA_RIGHT = 2;
   
   protected transient FlatMapper parent;
   protected transient PImage texture;
+  /* array of 4 2D PVector (x:u,y:v) storing the location of 
+   * the corners of the texture uv -  generated in clockwise order, 
+   * starting from top left, normalised between 0 and 1
+   */
+  protected PVector[] uv_quad; 
   protected transient float[][] geom_uv;
   
   protected PVector selected;
@@ -32,6 +40,12 @@ public class Mappable implements java.io.Serializable {
     selected = null;
     osc_address = null;
     texture_path = null;
+    
+    uv_quad = new PVector[4];
+    uv_quad[0] = new PVector( 0,0 ); // top left
+    uv_quad[1] = new PVector( 1,0 ); // top right
+    uv_quad[2] = new PVector( 1,1 ); // bottom right
+    uv_quad[3] = new PVector( 0,1 ); // bottom left
     
     rgba = new float[] {1,1,1,1};
     
