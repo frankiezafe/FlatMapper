@@ -32,6 +32,7 @@ Movie movie;
 public FlatMapper() {
   ResolutionConfig.width = 800;
   ResolutionConfig.height = 600;
+  ResolutionConfig.offsetx = 400;
   resc = new ResolutionChooser();
   int sel = resc.show();
   if ( sel == 1 ) {
@@ -69,7 +70,7 @@ public void setup() {
   smooth(8);
   background(0);
   textureMode(NORMAL);
-  textureWrap(CLAMP);
+  textureWrap(REPEAT);
   
 }
 

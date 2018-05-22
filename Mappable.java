@@ -64,6 +64,15 @@ public class Mappable implements java.io.Serializable {
     geom_uv = null;
   }
   
+  public PVector get_uv( int i ) {
+    return uv_quad[i];
+  }
+  
+  public void set_uv( int i, float x, float y ) {
+    uv_quad[i].set( x,y,0 );
+    generate_geometry();
+  }
+  
   public PVector get_vertex( int i ) {
     System.out.println( "Mappable.get_vertex(i), overload to disable this comment... " + i );
     return null;

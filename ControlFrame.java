@@ -12,6 +12,8 @@ class ControlFrame extends PApplet {
   public static final int EDITMODE_EDIT = 2;
   public static final int EDITMODE_DRAG = 3;
   
+  public static final float[] uv_range = new float[] { -2, 3 };
+  
   public static final int ee_ticka = 0;
   public static final int ee_tickmid = ee_ticka + 1;
   public static final int ee_tickb = ee_tickmid + 1;
@@ -38,7 +40,7 @@ class ControlFrame extends PApplet {
   public static final int ee_uvxd = ee_uvyc + 1;
   public static final int ee_uvyd = ee_uvxd + 1;
   
-  public static final int ee_div = ee_yd + 1;
+  public static final int ee_div = ee_uvyd + 1;
   public static final int ee_osc = ee_div + 1;
   public static final int ee_tex = ee_osc + 1;
   public static final int ee_deb = ee_tex + 1;
@@ -172,10 +174,25 @@ class ControlFrame extends PApplet {
     
     // UVS *********
     // uv a
-    ui_edit_elements.add( ui.addSlider("uv_x_a").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(-1,1) );
+    ui_edit_elements.add( ui.addSlider("uv_x_a").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(uv_range[0],uv_range[1]) );
     ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
-    ui_edit_elements.add( ui.addSlider("uv_y_d").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(-1,1) );
-    ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;  
+    ui_edit_elements.add( ui.addSlider("uv_y_a").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(uv_range[0],uv_range[1]) );
+    ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
+    // uv b
+    ui_edit_elements.add( ui.addSlider("uv_x_b").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(uv_range[0],uv_range[1]) );
+    ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
+    ui_edit_elements.add( ui.addSlider("uv_y_b").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(uv_range[0],uv_range[1]) );
+    ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
+    // uv c
+    ui_edit_elements.add( ui.addSlider("uv_x_c").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(uv_range[0],uv_range[1]) );
+    ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
+    ui_edit_elements.add( ui.addSlider("uv_y_c").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(uv_range[0],uv_range[1]) );
+    ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
+    // uv d
+    ui_edit_elements.add( ui.addSlider("uv_x_d").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(uv_range[0],uv_range[1]) );
+    ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
+    ui_edit_elements.add( ui.addSlider("uv_y_d").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(uv_range[0],uv_range[1]) );
+    ui_edit_gaps.add( 20 ); uiy += ui_edit_gaps.get( gid ); ++gid;
     
     ui_edit_elements.add( ui.addSlider("subdivisions").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(1,30) );
     ui_edit_gaps.add( 20 ); uiy += ui_edit_gaps.get( gid ); ++gid;
@@ -350,6 +367,24 @@ class ControlFrame extends PApplet {
     }
   }
   
+  private void uv_generic_x( int i, float v ) {
+    if ( parent.editmappable != null ) {
+      parent.editmappable.set_uv( i, 
+        v,
+        parent.editmappable.get_uv(i).y
+      );
+    }
+  }
+  
+  private void uv_generic_y( int i, float v ) {
+    if ( parent.editmappable != null ) {
+      parent.editmappable.set_uv( i, 
+        parent.editmappable.get_uv(i).x, 
+        v
+      );
+    }
+  }
+  
   public void pos_x_a( float v ) {
     pos_generic_x( 0, v );
   }
@@ -380,6 +415,31 @@ class ControlFrame extends PApplet {
   
   public void pos_y_d( float v ) {
     pos_generic_y( 3, v );
+  }
+  
+  public void uv_x_a( float v ) {
+    uv_generic_x( 0, v );
+  }
+  public void uv_y_a( float v ) {
+    uv_generic_y( 0, v );
+  }
+  public void uv_x_b( float v ) {
+    uv_generic_x( 1, v );
+  }
+  public void uv_y_b( float v ) {
+    uv_generic_y( 1, v );
+  }
+  public void uv_x_c( float v ) {
+    uv_generic_x( 2, v );
+  }
+  public void uv_y_c( float v ) {
+    uv_generic_y( 2, v );
+  }
+  public void uv_x_d( float v ) {
+    uv_generic_x( 3, v );
+  }
+  public void uv_y_d( float v ) {
+    uv_generic_y( 3, v );
   }
   
   public void subdivisions( int v ) {
@@ -505,6 +565,26 @@ class ControlFrame extends PApplet {
               {
                 int off = uiid - ee_xa;
                 PVector v = parent.editmappable.get_vertex( off / 2 );
+                if ( v != null ) {
+                  if ( off % 2 == 0 ) {
+                    ((Slider) c).setValue( v.x );
+                  } else {
+                    ((Slider) c).setValue( v.y );
+                  }
+                }
+              }
+              break;
+            case ee_uvxa:
+            case ee_uvya:
+            case ee_uvxb:
+            case ee_uvyb:
+            case ee_uvxc:
+            case ee_uvyc:
+            case ee_uvxd:
+            case ee_uvyd:
+              {
+                int off = uiid - ee_uvxa;
+                PVector v = parent.editmappable.get_uv( off / 2 );
                 if ( v != null ) {
                   if ( off % 2 == 0 ) {
                     ((Slider) c).setValue( v.x );
