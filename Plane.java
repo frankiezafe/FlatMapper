@@ -118,9 +118,6 @@ public class Plane extends Mappable {
     PVector right_delta = new PVector();
     PVector right_delta_uv = new PVector();
     compute_delta( DELTA_RIGHT, right_delta, right_delta_uv, null, null, null, null );
-    
-    System.out.println( left_delta_uv.toString() );
-    System.out.println( right_delta_uv.toString() );
 
     // xyz
     PVector left_top = new PVector();

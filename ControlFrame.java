@@ -175,7 +175,7 @@ class ControlFrame extends PApplet {
     ui_edit_elements.add( ui.addSlider("uv_x_a").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(-1,1) );
     ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
     ui_edit_elements.add( ui.addSlider("uv_y_d").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(-1,1) );
-    ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;
+    ui_edit_gaps.add( 15 ); uiy += ui_edit_gaps.get( gid ); ++gid;  
     
     ui_edit_elements.add( ui.addSlider("subdivisions").setPosition(uiy_left,uiy).setSize(ui_width_normal, 12).setRange(1,30) );
     ui_edit_gaps.add( 20 ); uiy += ui_edit_gaps.get( gid ); ++gid;
