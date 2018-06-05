@@ -1,12 +1,27 @@
 import processing.core.PVector;
 import processing.core.PApplet;
 import processing.core.PImage;
+import processing.data.JSONObject;
 import java.util.ArrayList;
 import oscP5.*;
 
 public class Plane extends Mappable {
 
   private PVector[] points;
+  
+  public JSONObject json() {
+    JSONObject data = super.json();
+    data.setString("type",  "Plane" );
+    data.setJSONArray("points",  FlatMapper.obj2json( points ) );
+    return data;
+  }
+  
+  public void json( JSONObject data ) {
+    
+    super.json( data ); 
+    this.parent = parent;
+    
+  }
 
   Plane() {
 
@@ -16,8 +31,8 @@ public class Plane extends Mappable {
     texture_path = null;
     geom_uv = null;
     init();
-
     points = null;
+    
   }
 
   Plane( FlatMapper parent, PVector a, PVector b, PVector c, PVector d ) {

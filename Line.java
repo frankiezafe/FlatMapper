@@ -1,6 +1,7 @@
 import processing.core.PVector;
 import processing.core.PApplet;
 import processing.core.PImage;
+import processing.data.JSONObject;
 import java.util.ArrayList;
 import oscP5.*;
 
@@ -14,6 +15,17 @@ public class Line extends Mappable {
   private float thickness_a;
   private float thickness_mid;
   private float thickness_b;
+  
+  public JSONObject json() {
+    JSONObject data = super.json();
+    data.setString("type",  "Line" );
+    data.setJSONObject("a",  FlatMapper.obj2json( a ) );
+    data.setJSONObject("b",  FlatMapper.obj2json( b ) );
+    data.setFloat("thickness_a", thickness_a );
+    data.setFloat("thickness_mid", thickness_mid );
+    data.setFloat("thickness_b", thickness_b );
+    return data;
+  }
   
   Line() {
     super();

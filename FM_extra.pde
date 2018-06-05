@@ -73,7 +73,52 @@ private void register_pgraphic( String name, PGraphics pg ) {
 // #####################################
 
 public String serialisation_path() {
-  return dataPath("") + "/flatmap";
+  return dataPath("") + "/flatmap.json";
+}
+
+public static JSONArray obj2json( PVector[] vs ) {
+  JSONArray array = new JSONArray();
+  for ( int i = 0; i < vs.length; ++i ) {
+    array.setJSONObject( i, obj2json( vs[i] ) );
+  }
+  return array;
+}
+
+public static JSONObject obj2json( PVector v ) {
+  JSONObject data = new JSONObject();
+  data.setString( "type", "PVector" );
+  JSONArray array = new JSONArray();
+  array.setFloat( 0, v.x );
+  array.setFloat( 1, v.y );
+  array.setFloat( 2, v.z );
+  data.setJSONArray( "values", array );
+  return data;
+}
+
+public static JSONObject obj2json( float[] v ) {
+  JSONObject data = new JSONObject();
+  data.setString( "type", "float[]" );
+  JSONArray array = new JSONArray();
+  for ( int i = 0; i < v.length; ++i ) {
+    array.setFloat( i, v[i] );
+  }
+  data.setJSONArray( "values", array );
+  return data;
+}
+
+public static void json2obj( JSONObject data, float[] v ) {
+  if ( !data.getString( "type" ).equals( "float[]" ) ) {
+    System.err.println( "json2obj: Failed to retrieve float[] from:" + data );
+    return;
+  }
+  JSONArray array = data.getJSONArray("values");
+  if ( array.size() != v.length ) {
+    System.err.println( "json2obj: json array and float array sizes does not match!" );
+    return;
+  }
+  for ( int i = 0; i < v.length; ++i ) {
+    v[i] = array.getFloat( i );
+  }
 }
 
 public synchronized void save_flatmap() {
@@ -81,50 +126,60 @@ public synchronized void save_flatmap() {
   try {
     
     JSONObject _data = new JSONObject();
-    
-    ResolutionConfig.json( _data );
-    saveJSONObject( _data, "flatmap.json" );
+    _data.setJSONObject("ResolutionConfig",  ResolutionConfig.json() );
+    int i;
+    JSONArray mappables = new JSONArray();
+    i = 0;
+    for ( Mappable m : map.ms ) {
+      mappables.setJSONObject( i, m.json() );
+      ++i;
+    }
+    _data.setJSONArray( "Mappable", mappables );
+    saveJSONObject( _data, serialisation_path() );
     
   } catch ( Exception e ) {
   
   }
-  // https://www.tutorialspoint.com/java/java_serialization.htm
-  try {
-    FileOutputStream fileOut = new FileOutputStream(serialisation_path());
-    ObjectOutputStream out = new ObjectOutputStream(fileOut);
-    out.writeObject( map );
-    out.close();
-    fileOut.close();
-  } 
-  catch( IOException e ) {
-    e.printStackTrace();
-  }
+  
 }
 
 public synchronized void load_flatmap() {
+
+  JSONObject _data = loadJSONObject( serialisation_path() );
+  JSONArray mappables = _data.getJSONArray("Mappable");
+  for (int i = 0; i < mappables.size(); i++) {
+    JSONObject mappable = mappables.getJSONObject(i);
+    if ( mappable.getString( "type" ).equals( "Line" ) ) {
+      println( "loading line" );
+    } else if ( mappable.getString( "type" ).equals( "Plane" ) ) {
+      println( "loading plane" );
+    }
+  }
+  //println( mappables );
+
   // https://beginnersbook.com/2013/12/how-to-serialize-arraylist-in-java/
-  try {
-    FileInputStream fis = new FileInputStream(serialisation_path());
-    ObjectInputStream ois = new ObjectInputStream(fis);
-    map = (FlatMap) ois.readObject();
-    ois.close();
-    fis.close();
-  } 
-  catch( IOException e ) {
-    e.printStackTrace();
-    return;
-  } 
-  catch(ClassNotFoundException e) {
-    System.out.println("Class not found");
-    //e.printStackTrace();
-    return;
-  } 
-  catch(ClassCastException e) {
-    System.out.println("Wrong class");
-    //e.printStackTrace();
-    return;
-  }
-  for ( Mappable m  : map.ms ) {
-    m.set_parent(this);
-  }
+  //try {
+  //  FileInputStream fis = new FileInputStream(serialisation_path());
+  //  ObjectInputStream ois = new ObjectInputStream(fis);
+  //  map = (FlatMap) ois.readObject();
+  //  ois.close();
+  //  fis.close();
+  //} 
+  //catch( IOException e ) {
+  //  e.printStackTrace();
+  //  return;
+  //} 
+  //catch(ClassNotFoundException e) {
+  //  System.out.println("Class not found");
+  //  //e.printStackTrace();
+  //  return;
+  //} 
+  //catch(ClassCastException e) {
+  //  System.out.println("Wrong class");
+  //  //e.printStackTrace();
+  //  return;
+  //}
+  //for ( Mappable m  : map.ms ) {
+  //  m.set_parent(this);
+  //}
 }

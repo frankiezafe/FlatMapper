@@ -10,17 +10,17 @@ class ResolutionConfig {
   static public int offsety = 0;
   static public boolean autoresize = false;
   
-  static void json( JSONObject data ) {
+  static JSONObject json() {
     
-    JSONObject sub = new JSONObject();
-    sub.setInt("width", width);
-    sub.setInt("height", height);
-    sub.setBoolean("fullscreen", fullscreen);
-    sub.setInt("screenid", screenid);
-    sub.setInt("offsetx", offsetx);
-    sub.setInt("offsety", offsety);
-    sub.setBoolean("autoresize", autoresize);
-    data.setJSONObject("ResolutionConfig", sub);
+    JSONObject data = new JSONObject();
+    data.setInt("width", width);
+    data.setInt("height", height);
+    data.setBoolean("fullscreen", fullscreen);
+    data.setInt("screenid", screenid);
+    data.setInt("offsetx", offsetx);
+    data.setInt("offsety", offsety);
+    data.setBoolean("autoresize", autoresize);
+    return data;
     
   }
   

@@ -28,14 +28,6 @@ public class ResolutionChooser {
   private JCheckBox fullsc;
   private JCheckBox autorsz;
   
-  public int screen_width;
-  public int screen_height;
-  public int screen_number;
-  public int screen_x;
-  public int screen_y;
-  public boolean screen_fullscreen;
-  public boolean auto_resize;
-  
   public ResolutionChooser() {
     
     components = new ArrayList<>();
@@ -142,14 +134,6 @@ public class ResolutionChooser {
         ResolutionConfig.offsetx = Integer.parseInt( xField.getText() );
         ResolutionConfig.offsety = Integer.parseInt( yField.getText() );
         ResolutionConfig.autoresize = autorsz.isSelected();
-        
-        screen_width = Integer.parseInt( wField.getText() );
-        screen_height = Integer.parseInt( hField.getText() );
-        screen_number = Integer.parseInt( scrField.getText() );
-        screen_x = Integer.parseInt( xField.getText() );
-        screen_y = Integer.parseInt( yField.getText() );
-        screen_fullscreen = fullsc.isSelected();
-        auto_resize = autorsz.isSelected();
         
       } catch (NumberFormatException nfe) {
         
