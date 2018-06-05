@@ -77,6 +77,17 @@ public String serialisation_path() {
 }
 
 public synchronized void save_flatmap() {
+  
+  try {
+    
+    JSONObject _data = new JSONObject();
+    
+    ResolutionConfig.json( _data );
+    saveJSONObject( _data, "flatmap.json" );
+    
+  } catch ( Exception e ) {
+  
+  }
   // https://www.tutorialspoint.com/java/java_serialization.htm
   try {
     FileOutputStream fileOut = new FileOutputStream(serialisation_path());

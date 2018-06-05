@@ -132,7 +132,17 @@ public class ResolutionChooser {
       );
     
     if ( selection == 0 ) {
+      
       try {
+        
+        ResolutionConfig.width = Integer.parseInt( wField.getText() );
+        ResolutionConfig.height = Integer.parseInt( hField.getText() );
+        ResolutionConfig.fullscreen = fullsc.isSelected();
+        ResolutionConfig.screenid = Integer.parseInt( scrField.getText() );
+        ResolutionConfig.offsetx = Integer.parseInt( xField.getText() );
+        ResolutionConfig.offsety = Integer.parseInt( yField.getText() );
+        ResolutionConfig.autoresize = autorsz.isSelected();
+        
         screen_width = Integer.parseInt( wField.getText() );
         screen_height = Integer.parseInt( hField.getText() );
         screen_number = Integer.parseInt( scrField.getText() );
@@ -140,11 +150,15 @@ public class ResolutionChooser {
         screen_y = Integer.parseInt( yField.getText() );
         screen_fullscreen = fullsc.isSelected();
         auto_resize = autorsz.isSelected();
+        
       } catch (NumberFormatException nfe) {
+        
         System.out.println("NumberFormatException: " + nfe.getMessage());
         System.out.println("It seems you fucked up the configuration...");
         selection = 1;
+        
       }
+      
     }
       
     System.out.println( selection );

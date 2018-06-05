@@ -41,9 +41,9 @@ public FlatMapper() {
 }
 
 public void settings() {
-  size( resc.screen_width, resc.screen_height, P3D );
-  if ( resc.screen_fullscreen ) {
-    fullScreen( resc.screen_number );
+  size( ResolutionConfig.width, ResolutionConfig.height, P3D );
+  if ( ResolutionConfig.fullscreen ) {
+    fullScreen( ResolutionConfig.screenid );
   }
 }
 
@@ -83,8 +83,8 @@ public void on_controlframe_loaded() {
   }
   cf.regenerate_ui();
 
-  if ( !resc.screen_fullscreen ) {
-    surface.setLocation(resc.screen_x, resc.screen_y);
+  if ( !ResolutionConfig.fullscreen ) {
+    surface.setLocation( ResolutionConfig.offsetx, ResolutionConfig.offsety );
   }
   
 }
