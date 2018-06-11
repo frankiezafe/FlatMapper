@@ -130,31 +130,5 @@ public synchronized void load_flatmap() {
     }
     
   }
-  //println( mappables );
-
-  // https://beginnersbook.com/2013/12/how-to-serialize-arraylist-in-java/
-  //try {
-  //  FileInputStream fis = new FileInputStream(serialisation_path());
-  //  ObjectInputStream ois = new ObjectInputStream(fis);
-  //  map = (FlatMap) ois.readObject();
-  //  ois.close();
-  //  fis.close();
-  //} 
-  //catch( IOException e ) {
-  //  e.printStackTrace();
-  //  return;
-  //} 
-  //catch(ClassNotFoundException e) {
-  //  System.out.println("Class not found");
-  //  //e.printStackTrace();
-  //  return;
-  //} 
-  //catch(ClassCastException e) {
-  //  System.out.println("Wrong class");
-  //  //e.printStackTrace();
-  //  return;
-  //}
-  //for ( Mappable m  : map.ms ) {
-  //  m.set_parent(this);
-  //}
+  
 }
