@@ -44,7 +44,6 @@
           "type": "PVector"
         }
       ],
-      "osc_address": "/M",
       "rgba": {
         "values": [
           1,
@@ -54,10 +53,11 @@
         ],
         "type": "float[]"
       },
+      "osc_address": "/M",
       "display": true,
       "texture_path": "grid.png",
       "type": "Plane",
-      "msubdivide": 10,
+      "msubdivide": 5,
       "points": [
         {
           "values": [
@@ -128,16 +128,16 @@
           "type": "PVector"
         }
       ],
-      "osc_address": "/M",
       "rgba": {
         "values": [
           1,
-          1,
+          0.6333333849906921,
           1,
           1
         ],
         "type": "float[]"
       },
+      "osc_address": "/M",
       "display": true,
       "texture_path": "grid.png",
       "type": "Plane",
@@ -145,32 +145,32 @@
       "points": [
         {
           "values": [
-            74,
-            172,
+            16,
+            307,
             0
           ],
           "type": "PVector"
         },
         {
           "values": [
-            157.00003051757812,
-            87,
+            245.00003051757812,
+            25.00001335144043,
             0
           ],
           "type": "PVector"
         },
         {
           "values": [
-            259.0000305175781,
-            306,
+            194.00003051757812,
+            336,
             0
           ],
           "type": "PVector"
         },
         {
           "values": [
-            134,
-            453,
+            67,
+            558,
             0
           ],
           "type": "PVector"
@@ -213,7 +213,6 @@
           "type": "PVector"
         }
       ],
-      "osc_address": "/L",
       "rgba": {
         "values": [
           1,
@@ -223,6 +222,7 @@
         ],
         "type": "float[]"
       },
+      "osc_address": "/L",
       "a": {
         "values": [
           270,
@@ -282,7 +282,6 @@
           "type": "PVector"
         }
       ],
-      "osc_address": "/L",
       "rgba": {
         "values": [
           1,
@@ -292,6 +291,7 @@
         ],
         "type": "float[]"
       },
+      "osc_address": "/L",
       "a": {
         "values": [
           289,

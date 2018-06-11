@@ -38,8 +38,8 @@ public class Mappable implements java.io.Serializable {
     
     JSONObject data = new JSONObject();
     data.setString("type",  "Mappable" );
-    data.setJSONArray("uv_quad",  FlatMapper.obj2json( uv_quad ) );
-    data.setJSONObject("rgba",  FlatMapper.obj2json( rgba ) );
+    data.setJSONArray("uv_quad",  FlatMap.obj2json( uv_quad ) );
+    data.setJSONObject("rgba",  FlatMap.obj2json( rgba ) );
     data.setString("osc_address",  osc_address );
     data.setString("texture_path",  texture_path );
     data.setInt("msubdivide",  msubdivide );
@@ -50,8 +50,8 @@ public class Mappable implements java.io.Serializable {
   
   public boolean json( JSONObject data ) {
     
-    FlatMapper.json2obj( data.getJSONArray( "uv_quad" ), uv_quad );
-    FlatMapper.json2obj( data.getJSONObject( "rgba" ), rgba );
+    uv_quad = FlatMap.json2pvector_array( data.getJSONArray( "uv_quad" ) );
+    rgba = FlatMap.json2float_array( data.getJSONObject( "rgba" ) );
     osc_address = data.getString( "osc_address" );
     texture_path = data.getString( "texture_path" );
     msubdivide = data.getInt( "msubdivide" );

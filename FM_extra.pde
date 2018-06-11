@@ -76,75 +76,6 @@ public String serialisation_path() {
   return dataPath("") + "/flatmap.json";
 }
 
-public static JSONArray obj2json( PVector[] vs ) {
-  JSONArray array = new JSONArray();
-  for ( int i = 0; i < vs.length; ++i ) {
-    array.setJSONObject( i, obj2json( vs[i] ) );
-  }
-  return array;
-}
-
-public static JSONObject obj2json( PVector v ) {
-  JSONObject data = new JSONObject();
-  data.setString( "type", "PVector" );
-  JSONArray array = new JSONArray();
-  array.setFloat( 0, v.x );
-  array.setFloat( 1, v.y );
-  array.setFloat( 2, v.z );
-  data.setJSONArray( "values", array );
-  return data;
-}
-
-public static JSONObject obj2json( float[] v ) {
-  JSONObject data = new JSONObject();
-  data.setString( "type", "float[]" );
-  JSONArray array = new JSONArray();
-  for ( int i = 0; i < v.length; ++i ) {
-    array.setFloat( i, v[i] );
-  }
-  data.setJSONArray( "values", array );
-  return data;
-}
-
-public static void json2obj( JSONArray array, PVector[] v ) {
-  if ( array.size() != v.length ) {
-    System.err.println( "json2obj: json array and float array sizes does not match!" );
-    return;
-  }
-  if ( v == null || v.length != array.size() ) {
-    v = new PVector[ array.size() ];
-  }
-  for ( int i = 0; i < v.length; ++i ) {
-    v[i] = json2pvector( array.getJSONObject( i ) );
-  }
-}
-
-public static PVector json2pvector( JSONObject d ) {
-  if ( !d.getString( "type" ).equals( "PVector" ) ) {
-    System.err.println( "json2obj: Failed to retrieve PVector from:" + d   );
-  }
-  JSONArray array = d.getJSONArray("values");
-  PVector out = new PVector();
-  out.x = array.getFloat(0);
-  out.y = array.getFloat(1);
-  out.z = array.getFloat(2);
-  return out;
-}
-
-public static void json2obj( JSONObject data, float[] v ) {
-  if ( !data.getString( "type" ).equals( "float[]" ) ) {
-    System.err.println( "json2obj: Failed to retrieve float[] from:" + data );
-    return;
-  }
-  JSONArray array = data.getJSONArray("values");
-  if ( v == null || v.length != array.size() ) {
-    v = new float[ array.size() ];
-  }
-  for ( int i = 0; i < v.length; ++i ) {
-    v[i] = array.getFloat( i );
-  }
-}
-
 public synchronized void save_flatmap() {
   
   try {
@@ -180,13 +111,24 @@ public synchronized void load_flatmap() {
   for (int i = 0; i < mappables_data.size(); i++) {
     JSONObject m_data = mappables_data.getJSONObject(i);
     if ( m_data.getString( "type" ).equals( "Line" ) ) {
-      println( "loading line" );
       Line l = new Line();
-      l.json( m_data );
-      
+      if ( l.json( m_data ) ) {
+        map.ms.add( l );
+        map.ls.add( l );
+      }
     } else if ( m_data.getString( "type" ).equals( "Plane" ) ) {
-      println( "loading plane" );
+      Plane p = new Plane();
+      if ( p.json( m_data ) ) {
+        System.out.println( "Plane sucessfully decompressed" );
+        map.ms.add( p );
+        map.ps.add( p );
+      }
     }
+    
+    for ( Mappable m : map.ms ) {
+      m.set_parent( this );
+    }
+    
   }
   //println( mappables );
 

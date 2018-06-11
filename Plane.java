@@ -12,7 +12,7 @@ public class Plane extends Mappable {
   public JSONObject json() {
     JSONObject data = super.json();
     data.setString("type",  "Plane" );
-    data.setJSONArray("points",  FlatMapper.obj2json( points ) );
+    data.setJSONArray("points",  FlatMap.obj2json( points ) );
     return data;
   }
   
@@ -22,7 +22,8 @@ public class Plane extends Mappable {
       return false;
     }
     super.json( data );
-    FlatMapper.json2obj( data.getJSONArray( "points" ), points );
+    points = FlatMap.json2pvector_array( data.getJSONArray( "points" ) );
+    System.out.println( points );
     return true;
   }
 
@@ -122,7 +123,10 @@ public class Plane extends Mappable {
 
   protected void generate_geometry() {
 
-    if ( points == null ) return;
+    if ( points == null ) { 
+      System.err.println( "Plane::generate_geometry: no points available!" );
+      return;
+    }
 
     ArrayList<float[]> tmp_faces = new ArrayList<float[]>();
 

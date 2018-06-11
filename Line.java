@@ -19,8 +19,8 @@ public class Line extends Mappable {
   public JSONObject json() {
     JSONObject data = super.json();
     data.setString("type",  "Line" );
-    data.setJSONObject("a",  FlatMapper.obj2json( a ) );
-    data.setJSONObject("b",  FlatMapper.obj2json( b ) );
+    data.setJSONObject("a",  FlatMap.obj2json( a ) );
+    data.setJSONObject("b",  FlatMap.obj2json( b ) );
     data.setFloat("thickness_a", thickness_a );
     data.setFloat("thickness_mid", thickness_mid );
     data.setFloat("thickness_b", thickness_b );
@@ -33,8 +33,8 @@ public class Line extends Mappable {
       return false;
     }
     super.json( data );
-    a = FlatMapper.json2pvector( data.getJSONObject("a") );
-    b = FlatMapper.json2pvector( data.getJSONObject("b") );
+    a = FlatMap.json2pvector( data.getJSONObject("a") );
+    b = FlatMap.json2pvector( data.getJSONObject("b") );
     thickness_a = data.getFloat("thickness_a");
     thickness_mid = data.getFloat("thickness_mid");
     thickness_b = data.getFloat("thickness_b");
