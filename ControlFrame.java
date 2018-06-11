@@ -237,7 +237,7 @@ class ControlFrame extends PApplet {
     
     background(0);
     
-    if ( display_texture_im != null ) {
+    if ( display_texture_im != null && parent.editmode == EDITMODE_NORMAL ) {
       float w = display_texture_im.width;
       float h = display_texture_im.height;
       float r = w / h;
@@ -256,6 +256,7 @@ class ControlFrame extends PApplet {
   }
   
   public void add_line(int i) {
+    
     parent.newmappable = true;
     Line newl = new Line( parent );
     newl.setup( 
@@ -268,9 +269,11 @@ class ControlFrame extends PApplet {
     parent.select( newl );
     parent.editmode = EDITMODE_EDIT;
     ui_refresh();
+    
   }
   
   public void add_plane(int i) {
+    
     parent.newmappable = true;
     Plane newp = new Plane();
     newp.setup( 
@@ -283,6 +286,7 @@ class ControlFrame extends PApplet {
     parent.select( newp );
     parent.editmode = EDITMODE_EDIT;
     ui_refresh();
+    
   }
   
   public void save_all(int i) {
@@ -454,6 +458,8 @@ class ControlFrame extends PApplet {
   
   public void controlEvent(ControlEvent e) { //<>//
     
+    System.out.println( "controlEvent " + e );
+    
     if( e.getName().equals("lines") ) {
     
       int lineid = (int)e.getValue();
@@ -490,7 +496,7 @@ class ControlFrame extends PApplet {
     } else if( e.getName().equals("textures") ) {
     
       int tid = (int)e.getValue();
-      PImage im = parent.get_texture( tid );
+      PImage im = parent.get_texture_tumb( tid );
       if ( im == null ) {
         return;
       }
@@ -505,6 +511,7 @@ class ControlFrame extends PApplet {
   }
   
   public void show_main( boolean visible ) {
+    
     if ( visible ) {
       for( Controller c : ui_main_elements ) {
         c.show();
@@ -514,6 +521,7 @@ class ControlFrame extends PApplet {
         c.hide();
       }
     }
+    
   }
   
   public void show_edit( boolean visible ) {
@@ -546,6 +554,7 @@ class ControlFrame extends PApplet {
   }
   
   public void ui_refresh() {
+    
     if ( ui == null ) {
       return;
     }
@@ -674,6 +683,7 @@ class ControlFrame extends PApplet {
   }
   
   public void regenerate_ui() {
+    
     int i = 0;
     String[] names = null;
     

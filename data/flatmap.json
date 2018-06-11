@@ -55,9 +55,9 @@
       },
       "osc_address": "/M",
       "display": true,
-      "texture_path": "grid.png",
+      "texture_path": "demo",
       "type": "Plane",
-      "msubdivide": 5,
+      "msubdivide": 15,
       "points": [
         {
           "values": [

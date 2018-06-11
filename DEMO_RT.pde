@@ -1,4 +1,5 @@
 PGraphics demo_rt;
+PImage demo_thumb;
 
 int demo_rt_pts = 4; 
 float demo_rt_angle = 0;
@@ -16,6 +17,8 @@ void setup_demo_rt() {
   demo_rt = createGraphics( 1024, 1024, P3D );
   demo_rt_radius = demo_rt.width/5;
   demo_rt_length = demo_rt.width/6;
+  
+  demo_thumb = null;
   
 }
 
@@ -84,5 +87,9 @@ void update_demo_rt() {
   }
   
   demo_rt.endDraw();
+  
+  if ( demo_thumb == null ) {
+    demo_thumb = texture_thumb( demo_rt );
+  }
   
 }

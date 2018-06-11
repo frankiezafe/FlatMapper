@@ -27,6 +27,12 @@ public void oscEvent(OscMessage msg) {
 // ############# TEXTURES ##############
 // #####################################
 
+class TextureRef {
+   public PImage im = null;
+   public Object src = null;
+   public String type = "undefined";
+}
+
 public PImage get_default_texture() {
   return get_texture( default_texture_path );
 }
@@ -35,27 +41,57 @@ public PImage get_texture( String path ) {
   if ( !texture_atlas.containsKey( path ) && !load_texture( path ) ) {
     return null;
   }
-  return texture_atlas.get( path );
+  return (PImage) texture_atlas.get( path ).src;
+}
+
+public TextureRef get_texture_ref( int id ) {
+  String[] names = new String[texture_atlas.keySet().size()];
+  texture_atlas.keySet().toArray(names);
+  if ( id < 0 || id >= names.length ) {
+    return null;
+  }
+  return texture_atlas.get( names[ id ] );
+}
+
+public TextureRef get_texture_ref( Object src ) {
+  String[] names = new String[texture_atlas.keySet().size()];
+  texture_atlas.keySet().toArray(names);
+  for ( int i = 0; i < names.length; ++i ) {
+    if ( texture_atlas.get( names[ i ] ).src == src ) {
+      return texture_atlas.get( names[ i ] );
+    }
+  }
+  return null;
 }
 
 public PImage get_texture( int id ) {
-    String[] names = new String[texture_atlas.keySet().size()];
-    texture_atlas.keySet().toArray(names);
-    if ( id < 0 || id >= names.length ) {
-      return null;
-    }
-    return texture_atlas.get( names[ id ] );
+  TextureRef tr = get_texture_ref( id );
+  if ( tr == null ) {
+    return null;
+  }
+  return (PImage) tr.src;
+}
+
+public PImage get_texture_tumb( int id ) {
+  TextureRef tr = get_texture_ref( id );
+  if ( tr == null ) {
+    return null;
+  }
+  return tr.im;
 }
 
 private void load_default_texture() {
-  texture_atlas = new java.util.HashMap<String,PImage>();
+  texture_atlas = new java.util.HashMap<String,TextureRef>();
   load_texture( default_texture_path );
 }
 
 private boolean load_texture( String path ) {
   try{ 
-    PImage tmp = loadImage( path );
-    texture_atlas.put( path, tmp );
+    TextureRef tr = new TextureRef();
+    tr.src = loadImage( path );
+    tr.im = (PImage) tr.src;
+    tr.type = "PImage";
+    texture_atlas.put( path, tr );
     return true;
   } catch( Exception e ) {
     
@@ -64,11 +100,33 @@ private boolean load_texture( String path ) {
 }
 
 private void register_movie( String name, Movie mov ) {
-  texture_atlas.put( name, mov );
+  TextureRef tr = new TextureRef();
+  tr.im = mov;
+  tr.src = mov;
+  tr.type = "Movie";
+  texture_atlas.put( name, tr );
 }
 
 private void register_pgraphic( String name, PGraphics pg ) {
-  texture_atlas.put( name, pg );
+  TextureRef tr = new TextureRef();
+  tr.src = pg;
+  tr.type = "PGraphics";
+  texture_atlas.put( name, tr );
+}
+
+private PImage texture_thumb( PGraphics src ) {
+  PImage thumb = createImage( src.width, src.height, RGB );
+  src.loadPixels();
+  thumb.loadPixels();
+  for( int i = 0; i < src.pixels.length; ++i ) {
+    thumb.pixels[i] = src.pixels[i];
+  }
+  thumb.updatePixels();
+  TextureRef tr = get_texture_ref( src );
+  if ( tr != null ) {
+    tr.im = thumb;
+  }
+  return thumb;
 }
 
 // #####################################

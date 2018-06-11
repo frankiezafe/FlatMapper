@@ -12,7 +12,7 @@ public FlatMap map = null;
 
 // source: http://michaelagamesartba1b.blogspot.be/2015/12/ba1b-consists-of-3-project-briefs-which.html
 public String default_texture_path = "grid.png";
-public java.util.HashMap<String,PImage> texture_atlas;
+public java.util.HashMap<String,TextureRef> texture_atlas;
 
 private OscP5 oscP5;
 private int oscP5_port = 23000;
