@@ -41,6 +41,9 @@ public PImage get_texture( String path ) {
 public PImage get_texture( int id ) {
     String[] names = new String[texture_atlas.keySet().size()];
     texture_atlas.keySet().toArray(names);
+    if ( id < 0 || id >= names.length ) {
+      return null;
+    }
     return texture_atlas.get( names[ id ] );
 }
 

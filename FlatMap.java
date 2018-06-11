@@ -20,6 +20,26 @@ public class FlatMap implements java.io.Serializable {
     ps.clear();
   }
   
+  public Line get_line( int i ) {
+    
+    if ( i < 0 || i >= ls.size() ) {
+      return null;
+    }
+    
+    return ls.get(i);
+    
+  }
+  
+  public Plane get_plane( int i ) {
+    
+    if ( i < 0 || i >= ps.size() ) {
+      return null;
+    }
+    
+    return ps.get(i);
+    
+  }
+  
   public void add( Line l ) {
     ms.add(l);
     ls.add(l);

@@ -452,20 +452,32 @@ class ControlFrame extends PApplet {
       }
   }
   
-  public void controlEvent(ControlEvent e) {
+  public void controlEvent(ControlEvent e) { //<>//
+    
     if( e.getName().equals("lines") ) {
+    
       int lineid = (int)e.getValue();
       parent.deselect_all();
-      parent.select( parent.map.ls.get( lineid ) );
-      parent.editmode = EDITMODE_EDIT;
-      ui_refresh();
+      Line l = parent.map.get_line( lineid );
+      if ( l != null ) {
+        parent.select( l );
+        parent.editmode = EDITMODE_EDIT;
+        ui_refresh();
+      }
+    
     } else if( e.getName().equals("planes") ) {
+    
       int planeid = (int)e.getValue();
       parent.deselect_all();
-      parent.select( parent.map.ps.get( planeid ) );
-      parent.editmode = EDITMODE_EDIT;
-      ui_refresh();
+      Plane p = parent.map.get_plane( planeid );
+      if ( p != null ) {
+        parent.select( p );
+        parent.editmode = EDITMODE_EDIT;
+        ui_refresh();
+      }
+    
     } else if( e.getName().equals("debug") ) {
+    
       if ( parent.editmappable == null ) {
         return;
       }
@@ -474,15 +486,22 @@ class ControlFrame extends PApplet {
       } else {
         parent.editmappable.enable_debug( true );
       }
+    
     } else if( e.getName().equals("textures") ) {
+    
       int tid = (int)e.getValue();
       PImage im = parent.get_texture( tid );
+      if ( im == null ) {
+        return;
+      }
       if ( im == display_texture_im ) {
         display_texture_im = null;
       } else {
         display_texture_im = im;
       }
+      
     }
+    
   }
   
   public void show_main( boolean visible ) {
@@ -498,7 +517,9 @@ class ControlFrame extends PApplet {
   }
   
   public void show_edit( boolean visible ) {
+    
     if ( visible ) {
+      
       int[] id_list = null;
       if ( parent.editline != null ) {
         id_list = ui_edit_slider_line;
@@ -513,11 +534,15 @@ class ControlFrame extends PApplet {
         uiy += ui_edit_gaps.get( uiid );
         c.show();
       }
+    
     } else {
+    
       for( Controller c : ui_edit_elements ) {
         c.hide();
       }
+    
     }
+    
   }
   
   public void ui_refresh() {
