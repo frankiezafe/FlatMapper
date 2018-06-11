@@ -55,11 +55,11 @@ public void setup() {
   load_default_texture();
   
   setup_demo_rt();
-  register_pgraphic( "demo", demo_rt );
+  texture_register_pgraphic( "demo", demo_rt );
   
   movie = new Movie(this, "mass_production_øøøø.mkv");
   movie.loop();
-  register_movie( "mass_prod", movie );
+  texture_register_movie( "mass_prod", movie );
   
   cf = new ControlFrame( this, 310, 600, "Controls");
   surface.setLocation(420, 10);

@@ -458,8 +458,6 @@ class ControlFrame extends PApplet {
   
   public void controlEvent(ControlEvent e) { //<>//
     
-    System.out.println( "controlEvent " + e );
-    
     if( e.getName().equals("lines") ) {
     
       int lineid = (int)e.getValue();

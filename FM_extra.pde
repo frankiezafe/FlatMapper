@@ -99,7 +99,7 @@ private boolean load_texture( String path ) {
   return false;
 }
 
-private void register_movie( String name, Movie mov ) {
+private void texture_register_movie( String name, Movie mov ) {
   TextureRef tr = new TextureRef();
   tr.im = mov;
   tr.src = mov;
@@ -107,7 +107,7 @@ private void register_movie( String name, Movie mov ) {
   texture_atlas.put( name, tr );
 }
 
-private void register_pgraphic( String name, PGraphics pg ) {
+private void texture_register_pgraphic( String name, PGraphics pg ) {
   TextureRef tr = new TextureRef();
   tr.src = pg;
   tr.type = "PGraphics";
