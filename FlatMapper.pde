@@ -161,14 +161,14 @@ public synchronized void draw() {
   background(0);
   
   for( Mappable m : map.ms ) {
-    if ( m == editmappable ) {
-      continue;
-    }
+    //if ( m == editmappable ) {
+    //  continue;
+    //}
     m.tri();
   }
   
   if ( editmappable != null ) {
-    editmappable.tri();
+    //editmappable.tri();
     editmappable.edit();
   }
   

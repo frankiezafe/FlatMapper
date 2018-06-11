@@ -203,7 +203,6 @@ class ControlFrame extends PApplet {
     ui_edit_elements.add( ui.addTextfield("texture_path").setPosition(uiy_left,uiy).setSize(ui_width_normal,15) );
     ui_edit_gaps.add( 40 ); uiy += ui_edit_gaps.get( gid ); ++gid;
     
-    //ui_debug = ;
     ui_edit_elements.add( ui.addToggle("debug").setPosition(uiy_left,uiy).setSize(15,15) );
     ui_edit_gaps.add( 40 ); uiy += ui_edit_gaps.get( gid ); ++gid;
     
@@ -711,6 +710,20 @@ class ControlFrame extends PApplet {
     names = new String[parent.texture_atlas.keySet().size()];
     names = parent.texture_atlas.keySet().toArray(names);
     ui_list_textures.setItems( names );
+    
+  }
+  
+  public void keyPressed() {
+    
+    if ( parent.editmode == EDITMODE_NORMAL ) {
+      
+      if ( keyCode == 32 ) {
+        
+        //parent.resc.show();
+        
+      }
+      
+    }
     
   }
 
