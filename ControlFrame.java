@@ -80,6 +80,7 @@ class ControlFrame extends PApplet {
   private PImage logo;
 
   public ControlFrame(FlatMapper _parent, int _w, int _h, String _name) {
+    
     super();   
     parent = _parent;
     w=_w;

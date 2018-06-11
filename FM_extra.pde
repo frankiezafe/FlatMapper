@@ -106,15 +106,39 @@ public static JSONObject obj2json( float[] v ) {
   return data;
 }
 
+public static void json2obj( JSONArray array, PVector[] v ) {
+  if ( array.size() != v.length ) {
+    System.err.println( "json2obj: json array and float array sizes does not match!" );
+    return;
+  }
+  if ( v == null || v.length != array.size() ) {
+    v = new PVector[ array.size() ];
+  }
+  for ( int i = 0; i < v.length; ++i ) {
+    v[i] = json2pvector( array.getJSONObject( i ) );
+  }
+}
+
+public static PVector json2pvector( JSONObject d ) {
+  if ( !d.getString( "type" ).equals( "PVector" ) ) {
+    System.err.println( "json2obj: Failed to retrieve PVector from:" + d   );
+  }
+  JSONArray array = d.getJSONArray("values");
+  PVector out = new PVector();
+  out.x = array.getFloat(0);
+  out.y = array.getFloat(1);
+  out.z = array.getFloat(2);
+  return out;
+}
+
 public static void json2obj( JSONObject data, float[] v ) {
   if ( !data.getString( "type" ).equals( "float[]" ) ) {
     System.err.println( "json2obj: Failed to retrieve float[] from:" + data );
     return;
   }
   JSONArray array = data.getJSONArray("values");
-  if ( array.size() != v.length ) {
-    System.err.println( "json2obj: json array and float array sizes does not match!" );
-    return;
+  if ( v == null || v.length != array.size() ) {
+    v = new float[ array.size() ];
   }
   for ( int i = 0; i < v.length; ++i ) {
     v[i] = array.getFloat( i );
@@ -145,13 +169,22 @@ public synchronized void save_flatmap() {
 
 public synchronized void load_flatmap() {
 
+  if ( map == null ) {
+    map = new FlatMap();
+  } else {
+    map.purge();
+  }
+  
   JSONObject _data = loadJSONObject( serialisation_path() );
-  JSONArray mappables = _data.getJSONArray("Mappable");
-  for (int i = 0; i < mappables.size(); i++) {
-    JSONObject mappable = mappables.getJSONObject(i);
-    if ( mappable.getString( "type" ).equals( "Line" ) ) {
+  JSONArray mappables_data = _data.getJSONArray("Mappable");
+  for (int i = 0; i < mappables_data.size(); i++) {
+    JSONObject m_data = mappables_data.getJSONObject(i);
+    if ( m_data.getString( "type" ).equals( "Line" ) ) {
       println( "loading line" );
-    } else if ( mappable.getString( "type" ).equals( "Plane" ) ) {
+      Line l = new Line();
+      l.json( m_data );
+      
+    } else if ( m_data.getString( "type" ).equals( "Plane" ) ) {
       println( "loading plane" );
     }
   }

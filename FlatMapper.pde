@@ -30,14 +30,17 @@ ControlFrame cf;
 Movie movie;
 
 public FlatMapper() {
+  
   ResolutionConfig.width = 800;
   ResolutionConfig.height = 600;
   ResolutionConfig.offsetx = 400;
+  
   resc = new ResolutionChooser();
   int sel = resc.show();
   if ( sel == 1 ) {
     System.exit(0);
   }
+  
 }
 
 public void settings() {
@@ -76,8 +79,11 @@ public void setup() {
 
 // called by ControlFrame at the end of setup
 public void on_controlframe_loaded() {
+  
   cf.ui_refresh();
+  
   load_flatmap();
+  
   if ( map == null ) {
     map = new FlatMap();
   }

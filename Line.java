@@ -27,6 +27,20 @@ public class Line extends Mappable {
     return data;
   }
   
+  public boolean json( JSONObject data ) {
+    if ( !data.getString("type").equals( "Line" ) ) {
+      System.err.println( "Line::json: invalid data type for " + data );
+      return false;
+    }
+    super.json( data );
+    a = FlatMapper.json2pvector( data.getJSONObject("a") );
+    b = FlatMapper.json2pvector( data.getJSONObject("b") );
+    thickness_a = data.getFloat("thickness_a");
+    thickness_mid = data.getFloat("thickness_mid");
+    thickness_b = data.getFloat("thickness_b");
+    return true;
+  }
+  
   Line() {
     super();
     parent = null;

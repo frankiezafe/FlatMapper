@@ -2,6 +2,7 @@ import processing.core.PVector;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.data.JSONObject;
+import processing.data.JSONArray;
 import java.util.ArrayList;
 import oscP5.*;
 
@@ -38,22 +39,25 @@ public class Mappable implements java.io.Serializable {
     JSONObject data = new JSONObject();
     data.setString("type",  "Mappable" );
     data.setJSONArray("uv_quad",  FlatMapper.obj2json( uv_quad ) );
+    data.setJSONObject("rgba",  FlatMapper.obj2json( rgba ) );
     data.setString("osc_address",  osc_address );
     data.setString("texture_path",  texture_path );
-    data.setJSONObject("rgba",  FlatMapper.obj2json( rgba ) );
     data.setInt("msubdivide",  msubdivide );
     data.setBoolean("display",  display );
     return data;
   
   }
   
-  public void json( JSONObject data ) {
+  public boolean json( JSONObject data ) {
     
+    FlatMapper.json2obj( data.getJSONArray( "uv_quad" ), uv_quad );
+    FlatMapper.json2obj( data.getJSONObject( "rgba" ), rgba );
     osc_address = data.getString( "osc_address" );
     texture_path = data.getString( "texture_path" );
     msubdivide = data.getInt( "msubdivide" );
     display = data.getBoolean( "display" );
-    FlatMapper.json2obj( data.getJSONObject( "rgba" ), rgba );
+    
+    return true;
   
   }
 

@@ -10,6 +10,12 @@ public class FlatMap implements java.io.Serializable {
     ps = new java.util.ArrayList<Plane>();
   };
   
+  public void purge() {
+    ms.clear();
+    ls.clear();
+    ps.clear();
+  }
+  
   public void add( Line l ) {
     ms.add(l);
     ls.add(l);

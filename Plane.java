@@ -16,11 +16,14 @@ public class Plane extends Mappable {
     return data;
   }
   
-  public void json( JSONObject data ) {
-    
-    super.json( data ); 
-    this.parent = parent;
-    
+  public boolean json( JSONObject data ) {
+    if ( !data.getString("type").equals( "Plane" ) ) {
+      System.err.println( "Plane::json: invalid data type for " + data );
+      return false;
+    }
+    super.json( data );
+    FlatMapper.json2obj( data.getJSONArray( "points" ), points );
+    return true;
   }
 
   Plane() {
