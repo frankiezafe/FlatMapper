@@ -1,4 +1,4 @@
-import java.util.Base64;
+import javax.swing.JFileChooser;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +23,7 @@ public Line editline = null;
 public Plane editplane = null;
 public boolean newmappable;
 public PVector offset;
+public String flatmap_path;
 
 ResolutionChooser resc;
 ControlFrame cf;
@@ -30,6 +31,8 @@ ControlFrame cf;
 Movie movie;
 
 public FlatMapper() {
+  
+  project_selector();
   
   ResolutionConfig.width = 800;
   ResolutionConfig.height = 600;
@@ -73,7 +76,6 @@ public void setup() {
   smooth(8);
   background(0);
   textureMode(NORMAL);
-  textureWrap(REPEAT);
   
 }
 

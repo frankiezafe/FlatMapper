@@ -1,3 +1,19 @@
+// #####################################
+// ############## PROJECT ##############
+// #####################################
+
+public void project_selector() {
+  flatmap_path = "";
+  JFileChooser fc = new JFileChooser();
+  int i = fc.showDialog( null, "select flatmap" );
+  if ( i == 0 ) {
+    flatmap_path = fc.getSelectedFile().getPath();
+    if ( !flatmap_path.substring( flatmap_path.length() - 8, flatmap_path.length() ).equals( ".flatmap" ) ) {
+      flatmap_path += ".flatmap";
+    }
+    System.out.println( flatmap_path );
+  }
+}
 
 // #####################################
 // ################ OSC ################
@@ -134,7 +150,10 @@ private PImage texture_thumb( PGraphics src ) {
 // #####################################
 
 public String serialisation_path() {
-  return dataPath("") + "/flatmap.json";
+  if ( flatmap_path.equals("") ) {
+    flatmap_path = dataPath("") + "/flatmap.json";
+  }
+  return flatmap_path;
 }
 
 public synchronized void save_flatmap() {
@@ -167,7 +186,13 @@ public synchronized void load_flatmap() {
     map.purge();
   }
   
-  JSONObject _data = loadJSONObject( serialisation_path() );
+  JSONObject _data;
+  try { 
+    _data = loadJSONObject( serialisation_path() );
+  } catch ( Exception e ) {
+    e.printStackTrace();
+    return;
+  }
   JSONArray mappables_data = _data.getJSONArray("Mappable");
   for (int i = 0; i < mappables_data.size(); i++) {
     JSONObject m_data = mappables_data.getJSONObject(i);

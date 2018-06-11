@@ -55,6 +55,7 @@ public class Plane extends Mappable {
     points[2] = c;
     points[3] = d;
     generate_geometry();
+    
   }
 
   protected void init() {
@@ -70,6 +71,7 @@ public class Plane extends Mappable {
     points[2] = new PVector( centerx + width * 0.5f, centery + height * 0.5f, 0 );
     points[3] = new PVector( centerx - width * 0.5f, centery + height * 0.5f, 0 );
     generate_geometry();
+    
   }
 
   public void setup( PVector a, PVector b, PVector c, PVector d ) {
@@ -80,6 +82,7 @@ public class Plane extends Mappable {
     points[2] = c;
     points[3] = d;
     generate_geometry();
+    
   }
 
   protected void compute_delta( int type, PVector xyz, PVector uv, PVector from, PVector to, PVector from_uv, PVector to_uv ) {

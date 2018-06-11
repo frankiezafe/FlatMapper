@@ -34,6 +34,8 @@ public class Mappable implements java.io.Serializable {
   protected boolean edited;
   protected boolean debugged;
   
+  protected int texture_warp;
+  
   public JSONObject json() {
     
     JSONObject data = new JSONObject();
@@ -45,7 +47,7 @@ public class Mappable implements java.io.Serializable {
     data.setInt("msubdivide",  msubdivide );
     data.setBoolean("display",  display );
     return data;
-  
+    
   }
   
   public boolean json( JSONObject data ) {
@@ -55,8 +57,8 @@ public class Mappable implements java.io.Serializable {
     osc_address = data.getString( "osc_address" );
     texture_path = data.getString( "texture_path" );
     msubdivide = data.getInt( "msubdivide" );
+    msubdivide_request = msubdivide;
     display = data.getBoolean( "display" );
-    
     return true;
   
   }
@@ -84,6 +86,8 @@ public class Mappable implements java.io.Serializable {
 
     msubdivide = MESH_SUBDIVIDE;
     msubdivide_request = MESH_SUBDIVIDE;
+    
+    texture_warp = 0;
     
   }
 
@@ -238,6 +242,7 @@ public class Mappable implements java.io.Serializable {
     parent.beginShape( parent.TRIANGLES );
     if ( texture != null ) { 
       parent.texture(texture);
+      parent.textureWrap(texture_warp);
     }
     int len = geom_uv.length;
     for( int i = 0; i < len; ++i ) {
@@ -247,6 +252,7 @@ public class Mappable implements java.io.Serializable {
     if ( texture != null ) { 
       parent.noTint();
     }
+    
   }
   
   public void edit() {
