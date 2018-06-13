@@ -150,8 +150,8 @@ private PImage texture_thumb( PGraphics src ) {
 // #####################################
 
 public String serialisation_path() {
-  if ( flatmap_path.equals("") ) {
-    flatmap_path = dataPath("") + "/flatmap.json";
+  if ( flatmap_path == null || flatmap_path.equals("") ) {
+    flatmap_path = dataPath("") + "/flatmap.flatmap";
   }
   return flatmap_path;
 }

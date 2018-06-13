@@ -1,0 +1,235 @@
+{
+  "ResolutionConfig": {
+    "screenid": 1,
+    "offsetx": 400,
+    "offsety": 0,
+    "fullscreen": false,
+    "autoresize": false,
+    "width": 800,
+    "height": 600
+  },
+  "Mappable": [
+    {
+      "thickness_mid": 10.000000953674316,
+      "uv_quad": [
+        {
+          "values": [
+            0,
+            0,
+            0
+          ],
+          "type": "PVector"
+        },
+        {
+          "values": [
+            1,
+            0,
+            0
+          ],
+          "type": "PVector"
+        },
+        {
+          "values": [
+            1,
+            1,
+            0
+          ],
+          "type": "PVector"
+        },
+        {
+          "values": [
+            0,
+            1,
+            0
+          ],
+          "type": "PVector"
+        }
+      ],
+      "rgba": {
+        "values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "type": "float[]"
+      },
+      "osc_address": "/L",
+      "a": {
+        "values": [
+          117.99999237060547,
+          102,
+          0
+        ],
+        "type": "PVector"
+      },
+      "b": {
+        "values": [
+          156,
+          346,
+          0
+        ],
+        "type": "PVector"
+      },
+      "thickness_b": 10.000000953674316,
+      "display": true,
+      "thickness_a": 10.000000953674316,
+      "texture_path": "grid.png",
+      "type": "Line",
+      "msubdivide": 5
+    },
+    {
+      "thickness_mid": 10.000000953674316,
+      "uv_quad": [
+        {
+          "values": [
+            0,
+            0,
+            0
+          ],
+          "type": "PVector"
+        },
+        {
+          "values": [
+            1,
+            0,
+            0
+          ],
+          "type": "PVector"
+        },
+        {
+          "values": [
+            1,
+            1,
+            0
+          ],
+          "type": "PVector"
+        },
+        {
+          "values": [
+            0,
+            1,
+            0
+          ],
+          "type": "PVector"
+        }
+      ],
+      "rgba": {
+        "values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "type": "float[]"
+      },
+      "osc_address": "/L",
+      "a": {
+        "values": [
+          423.9999694824219,
+          430.9999694824219,
+          0
+        ],
+        "type": "PVector"
+      },
+      "b": {
+        "values": [
+          156,
+          347,
+          0
+        ],
+        "type": "PVector"
+      },
+      "thickness_b": 10.000000953674316,
+      "display": true,
+      "thickness_a": 10.000000953674316,
+      "texture_path": "grid.png",
+      "type": "Line",
+      "msubdivide": 5
+    },
+    {
+      "uv_quad": [
+        {
+          "values": [
+            0,
+            0,
+            0
+          ],
+          "type": "PVector"
+        },
+        {
+          "values": [
+            1,
+            0,
+            0
+          ],
+          "type": "PVector"
+        },
+        {
+          "values": [
+            1,
+            1,
+            0
+          ],
+          "type": "PVector"
+        },
+        {
+          "values": [
+            0,
+            1,
+            0
+          ],
+          "type": "PVector"
+        }
+      ],
+      "rgba": {
+        "values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "type": "float[]"
+      },
+      "osc_address": "/M",
+      "display": true,
+      "texture_path": "demo",
+      "type": "Plane",
+      "msubdivide": 10,
+      "points": [
+        {
+          "values": [
+            274,
+            120,
+            0
+          ],
+          "type": "PVector"
+        },
+        {
+          "values": [
+            738,
+            182,
+            0
+          ],
+          "type": "PVector"
+        },
+        {
+          "values": [
+            548,
+            594,
+            0
+          ],
+          "type": "PVector"
+        },
+        {
+          "values": [
+            320,
+            360,
+            0
+          ],
+          "type": "PVector"
+        }
+      ]
+    }
+  ]
+}

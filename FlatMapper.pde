@@ -1,3 +1,47 @@
+/*
+
+ 
+ _________ ____  .-. _________/ ____ .-. ____ 
+ __|__  (_)_/(_)(   )____<    \|    (   )  (_)
+                 `-'                 `-'      
+ 
+
+ art & game engines
+ 
+____________________________________  ?   ____________________________________
+                                    (._.)
+ 
+ 
+ This file is part of FlatMapper
+ For the latest info, see http://polymorph.cool/
+ 
+ Copyright (c) 2018 polymorph.cool
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+ 
+___________________________________( ^3^)_____________________________________
+ 
+ ascii font: rotated by MikeChat & myflix
+ have fun and be cool :)
+ 
+ */
+
 import javax.swing.JFileChooser;
 import java.util.Map;
 import java.util.ArrayList;
@@ -9,8 +53,9 @@ import controlP5.*;
 import processing.video.*;
 
 public FlatMap map = null;
+ResolutionChooser resc;
+ControlFrame cf;
 
-// source: http://michaelagamesartba1b.blogspot.be/2015/12/ba1b-consists-of-3-project-briefs-which.html
 public String default_texture_path = "grid.png";
 public java.util.HashMap<String,TextureRef> texture_atlas;
 
@@ -25,19 +70,25 @@ public boolean newmappable;
 public PVector offset;
 public String flatmap_path;
 
-ResolutionChooser resc;
-ControlFrame cf;
-
 Movie movie;
 
 public FlatMapper() {
   
-  project_selector();
+  /* Display a file chooser to select the .flatmap to load
+   * anywhere in the harddrive.
+   */
+  //project_selector();
   
-  ResolutionConfig.width = 800;
-  ResolutionConfig.height = 600;
-  ResolutionConfig.offsetx = 400;
+  /* Change the default resolution configuration
+   * before the ResolutionChooser popup.
+   */
+  //ResolutionConfig.width = 800;
+  //ResolutionConfig.height = 600;
+  //ResolutionConfig.offsetx = 400;
   
+  /* Display a configuration popup,
+   * see ResolutionChooser.java for the code
+   */
   resc = new ResolutionChooser();
   int sel = resc.show();
   if ( sel == 1 ) {
@@ -57,6 +108,12 @@ public void setup() {
   
   load_default_texture();
   
+  /* This part shows how to create a sub-sketch usable
+   * with the mapping shapes. The sub-sketch 'DEMO_RT'
+   * draws in a PGraphics ( demo_rt ), registered as an
+   * image in the texture_atlas (texture_register_pgraphic).
+   * For more details, go to DEMO_RT tab.
+   */
   setup_demo_rt();
   texture_register_pgraphic( "demo", demo_rt );
   
@@ -161,14 +218,13 @@ public synchronized void draw() {
   background(0);
   
   for( Mappable m : map.ms ) {
-    //if ( m == editmappable ) {
-    //  continue;
-    //}
     m.tri();
   }
   
   if ( editmappable != null ) {
-    //editmappable.tri();
+    if ( !map.ms.contains( editmappable ) ) {
+      editmappable.tri();
+    }
     editmappable.edit();
   }
   
